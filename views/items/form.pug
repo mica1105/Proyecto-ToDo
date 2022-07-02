@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h4= title
+            .modal-body 
+                - var url = item ? item.id+"?_method=PUT" : "";  
+                form(method="post",action="./"+url)
+                    if(item === undefined || item.estado == 1)
+                        div.mb-3
+                            label.form-label(for="titulo") Titulo:
+                            input.form-control(type="text", name="titulo",required , value=item ? item.titulo : "")
+
+                        div.mb-3
+                            label.form-label(for="descripcion") Descripcion:
+                            input.form-control(type="text", name="descripcion",required , value=item ? item.descripcion : "")
+                        
+                        div.mb-3
+                            label.form-label(for="limite") Fecha Limite:
+                            input.form-control(type="date", name="limite", min=hoy ,required , value=item ? item.fechaLimite : "")
+
+                        div.mb-3 
+                            label.form-label(for="prioridad") Prioridad:
+                            select.form-select(name="prioridad", required)
+                                each prioridad in prioridades
+                                    if item && prioridad.id == item.prioridad
+                                        option(value= prioridad.id, selected="true") #{prioridad.descripcion}
+                                    else
+                                        option(value= prioridad.id) #{prioridad.descripcion}
+                        
+                        div.mb-3 
+                            label.form-label(for="lista") Lista:
+                            select.form-select(name="lista")
+                                option(value= "") Sin Lista
+                                each lista in listas
+                                    if item && lista.id == item.lista
+                                        option(value= lista.id, selected="true") #{lista.titulo}
+                                    else
+                                        option(value= lista.id) #{lista.titulo}
+
+                    div.mb-3 
+                        label.form-label(for="estado") Estado:
+                        select.form-select(name="estado", required)
+                            each estado in estados
+                                if item && estado.id == item.estado
+                                    option(value= estado.id, selected="true") #{estado.estado}
+                                else
+                                    option(value= estado.id) #{estado.estado}
+
+                    div.d-grid.gap-2.d-md-flex.justify-content-md-center
+                        input(type="hidden", name="listaId" value= item ? item.lista : '')
+                        a.btn.btn-danger(href= '/items/') Cancelar
+                        button.btn.btn-primary(type="submit") Guardar

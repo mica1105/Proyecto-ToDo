@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h4= titulo
+            .modal-body 
+                - var url = categoria ? categoria.id+"?_method=PUT" : "";  
+                form(method="post",action="./"+url)
+                    div.mb-3
+                        label.form-label(for="nombre") Titulo:
+                        input.form-control(type="text", name="nombre",required , value=categoria ? categoria.nombre : "")
+
+                    div.mb-3 
+                        button.btn.btn-primary(type="submit") Guardar

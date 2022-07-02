@@ -1,0 +1,7 @@
+Usuario Administrador:
+Email: admin@admin.com
+Password: pass
+
+Usuario:
+Email: amarillolatino.mika@gmail.com
+Password: 123456

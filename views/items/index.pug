@@ -1,0 +1,54 @@
+extends ../layout
+
+block content
+  .container
+    br
+    .row
+      .col-lg-4
+        h1= title
+
+      .col-lg-3
+        a.btn.btn-primary.btn-lg(href="/items/insertar") Nuevo Item
+      
+      .col-lg-5
+        div.form-inline.h5
+          form(action="/items/ordenarPor", method="post") 
+            label(for='atributo') Ordenar por: 
+            select.custom-select.lg(name="atributo")
+              option(value="fechaCreacion") Fecha de Creacion
+              option(value="fechaLimite") Fecha Limite
+              option(value="prioridad") Prioridad
+            input(type="submit", value="ordenar")
+        
+    .row
+      br
+      table.table.table-success.table-striped(style="font-size: 18px")
+          thead 
+            tr 
+              th Titulo 
+              th Creacion
+              th Resolucion
+              th Descripcion 
+              th Prioridad 
+              th Limite
+              th Estado
+              th 
+              th 
+          tbody 
+            each item in listado
+              tr
+                td= item.titulo
+                td= item.getFormato(item.fechaCreacion)
+                td= item.getFormato(item.fechaResolucion)
+                td= item.descripcion 
+                td= item.Prioridad.descripcion 
+                td= item.getFormato(item.fechaLimite)
+                td= item.Estado.estado
+                td
+                  form(action="/items/"+item.id, method="get")
+                    input.btn.btn-success(value="Actualizar",type="submit")
+                td 
+                  form(action="/items/"+item.id+"?_method=delete", method="post")
+                    input.btn.btn-danger(value="Borrar",type="submit")
+            else
+              h3(style="color:red") No hay items cargados

@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  .modal-dialog
+        .modal-content
+          .modal-header
+            h4#myModalLabel.modal-title
+              = title
+          .modal-body
+
+            ul 
+            each item in lista
+              li  
+                a(href="http://") X 
+                = item.item
+            else 
+              li No se encuentran items en la lista
+              
+            form(id="procesar")
+              div.form-group
+                label(for='item') What should I do?
+                input.form-control(type="text", id= "item")
+              button.btn.btn-primary(type="submit") Confirm
+
+          .modal-footer
+            p The app we're going to create. Still beautifull
+            
+  script(src="/jquery/jquery.js")
+  script(src="/javascripts/llamadas.js") 

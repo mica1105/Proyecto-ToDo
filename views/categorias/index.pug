@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    .container
+        br
+        .row
+            .col
+                h1= titulo
+
+            .col-md-4
+                a.btn.btn-primary.btn-lg(href="/categorias/insertar") Nuevo categoria 
+                
+        .row
+            table.table.table-success.table-striped(style="font-size: 18px")
+                thead 
+                    tr 
+                        th Numero 
+                        th Nombre
+                        th 
+                        th
+                tbody 
+                    each categoria in categorias
+                        tr
+                            td= categoria.id
+                            td= categoria.nombre
+                            td
+                                form(action="/categorias/"+categoria.id, method="get")
+                                    input.btn.btn-primary(value="Actualizar",type="submit")
+                            td 
+                                form(action="/categorias/"+categoria.id+"?_method=delete", method="post")
+                                    input.btn.btn-danger(value="Borrar",type="submit")
+                    else
+                        h3(style="color:red") No hay categorias cargados

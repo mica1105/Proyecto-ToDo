@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    .container
+        br
+        .row
+            .col
+                h1= lista.titulo
+
+            .col-md-4
+                h3.bg-black.text-light Creada: #{lista.getFormato(lista.fechaCreacion)}
+            
+        .row.justify-content-center
+            .col-5(style="margin-top:25px")
+                div.row.justify-content-md-center.list-group
+                    each item in listado
+                        a.list-group-item.list-group-item-info(href="/items/"+item.id)
+                            div.d-flex.w-100.justify-content-between
+                                h3.mb-1= item.titulo
+                                span.badge.bg-primary.rounded-pill= item.Estado.estado
+                            h5.mb-1= item.descripcion
+                            p.mb-1 Fecha Limite: #{item.fechaLimite}
+                            p.mb-1 Prioridad: #{item.Prioridad.descripcion}

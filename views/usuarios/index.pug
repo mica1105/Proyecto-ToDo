@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  .container
+    br
+    .row
+      .col
+        h1= title
+
+      .col-md-4.text-end
+        a.btn.btn-primary.btn-lg(href="/usuarios/insertar") Nuevo Usuario
+        
+    .row
+      br
+      table.table.table-success.table-striped(style="font-size: 18px")
+          thead 
+            tr 
+              th Nombre 
+              th Email
+              th Creacion
+              th Rol
+              th
+          tbody 
+            each usuario in usuarios
+              tr
+                td= usuario.nombre
+                td= usuario.email
+                td= usuario.getFormato(usuario.creacion)
+                td= usuario.Rol.descripcion
+                td 
+                  form(action="/usuarios/"+usuario.id+"?_method=DELETE", method="post")
+                    input.btn.btn-danger(value="Borrar",type="submit")
+            else
+              h3(style="color:red") No hay usuarios cargados

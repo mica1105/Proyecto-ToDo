@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  br
+  .container
+    br
+    .row
+      .col
+        h1= title
+
+      .col-md-4.offset-md-4
+        a.btn.btn-primary.btn-lg(href="/listas/insertar") Nueva lista
+        
+    .row
+      br
+      table.table.table-success.table-striped(style="font-size: 18px")
+          thead 
+            tr 
+              th Titulo 
+              th Creacion
+              th Resolucion
+              th Estado
+              th 
+          tbody 
+            each lista in listas
+              tr
+                td= lista.titulo
+                td= lista.getFormato(lista.fechaCreacion)
+                td= lista.getFormato(lista.fechaResolucion)
+                td= lista.Estado.estado
+                td.list-group.list-group-horizontal-lg
+                  form(action="/listas/listarItems/"+lista.id, method="get")
+                    input.btn.btn-info.me-2(value="Items",type="submit")
+                  form(action="/listas/"+lista.id, method="get")
+                    input.btn.btn-success.me-2(value="Actualizar",type="submit")
+                  form(action="/listas/"+lista.id+"?_method=DELETE", method="post")
+                    input.btn.btn-danger(value="Borrar",type="submit")
+            else
+              h3(style="color:red") No hay listas cargadas

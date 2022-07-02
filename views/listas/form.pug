@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+    .modal-dialog
+        .modal-content
+            .modal-header
+                h4= title
+            .modal-body 
+                - var url = lista ? lista.id+"?_method=PUT" : "";  
+                form(method="post",action="./"+url)
+                    div.mb-3
+                        label.form-label(for="titulo") Titulo:
+                        input.form-control(type="text", name="titulo",required , value=lista ? lista.titulo : "")
+                
+                    div.mb-3 
+                        label.form-label(for="categoria") Categoria:
+                        select.form-select(name="categoria", required)
+                            if(categorias)
+                                each categoria in categorias
+                                    if lista && categoria.id == lista.categoria
+                                        option(value= categoria.id, selected="true") #{categoria.nombre}
+                                    else
+                                        option(value= categoria.id) #{categoria.nombre}
+
+                    div.d-grid.gap-2.d-md-flex.justify-content-md-center
+                        a.btn.btn-danger(href= '/listas/') Cancelar
+                        button.btn.btn-primary(type="submit") Guardar
